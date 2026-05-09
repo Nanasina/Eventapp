@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Navbar({ open, setOpen }) {
   return (
     <>
@@ -19,7 +21,7 @@ function Navbar({ open, setOpen }) {
 
   </div>
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">AdminEvents</a>
+    <Link to="/accueil" className="btn btn-ghost text-xl">AdminEvents</Link>
   </div>
   <div className="flex-none">
     <label className="swap swap-rotate">
@@ -47,6 +49,7 @@ function Navbar({ open, setOpen }) {
 
     <button className="btn btn-ghost btn-circle">
       <div className="indicator">
+        <Link to="/reservation">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -59,6 +62,7 @@ function Navbar({ open, setOpen }) {
             strokeWidth="2"
             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
         </svg>
+        </Link>
         <span className="badge badge-xs badge-primary indicator-item"></span>
       </div>
     </button>
@@ -75,10 +79,10 @@ function Navbar({ open, setOpen }) {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow">
         <li>
-          <a className="justify-between">
+          <Link to="/profil" className="justify-between">
             Profil
             <span className="badge">New</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

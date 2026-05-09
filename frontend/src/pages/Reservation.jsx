@@ -2,7 +2,7 @@ import { useState } from "react"
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 
-function Events() {
+function Reservation() {
   const [open, setOpen] = useState(false)
 
   return (
@@ -16,7 +16,7 @@ function Events() {
         )}
         <main className={`flex flex-1 flex-col overflow-y-auto ${open ? 'ml-56' : ''}`}>
           <header className="w-full py-6 flex justify-center">
-            <h1 className="font-semibold text-xl">Evénements</h1>
+            <h1 className="font-semibold text-xl">Réservation</h1>
           </header>
           <section className="flex-1" />
         </main>
@@ -25,4 +25,4 @@ function Events() {
   )
 }
 
-export default Events
+export default Reservation
