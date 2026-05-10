@@ -21,7 +21,7 @@ function Navbar({ open, setOpen }) {
 
   </div>
   <div className="flex-1">
-    <Link to="/accueil" className="btn btn-ghost text-xl">AdminEvents</Link>
+    <Link to="/Dashboard" className="btn btn-ghost text-xl">AdminEvents</Link>
   </div>
   <div className="flex-none">
     <label className="swap swap-rotate">

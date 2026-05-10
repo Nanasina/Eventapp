@@ -7,7 +7,7 @@ function Sidebar() {
     <>
 <div className="flex flex-col h-[calc(100vh-4rem)] w-64">
         <ul className="menu bg-base-200 rounded-box w-56 flex flex-col h-full">
-  <li>
+  {/* <li>
     <Link to="/accueil">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -23,9 +23,9 @@ function Sidebar() {
       </svg>
       Accueil
     </Link>
-  </li>
+  </li> */}
   <li>
-    <Link to="/dashboard">
+    <Link to="/">
         <div 
         className="h-5 w-5"
         stroke="currentColor"
