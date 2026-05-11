@@ -16,18 +16,21 @@ function Publication() {
           </div>
         )}
         <main className={`flex flex-1 justify-center items-center flex-col overflow-y-auto ${open ? 'ml-56' : ''}`}>
-          <form className="fieldset bg-base-200 border-base-300 rounded-box p-6 w-full max-w-2xl m-8">
-    <label className="label">Nom de l'événement *</label>
-    <input type="text" className="input w-full h-10" />
+          
+          <div className="w-full max-w-2xl px-4">
+            <h1 className="text-2xl font-bold mb-6">Publier un événement <br /> <span className="text-sm text-gray-400 font-normal">Tous les champs marqués d'une astérisque (*) sont obligatoires pour la validation de l'événement</span></h1>
+            <form className="fieldset border shadow-md bg-white rounded-box p-6">
+    <label className="label font-medium">Nom de l'événement *</label>
+    <input type="text" className="input w-full h-10 border-gray-300" placeholder="Ex: Concert de Jazz" />
 
-    <label className="label">Artist/Groupe *</label>
-    <input type="text" className="input w-full h-10" />
+    <label className="label font-medium">Artiste/Groupe *</label>
+    <input type="text" className="input w-full h-10 border-gray-300" placeholder="Ex: Mahaleo, Denise..." />
 
-    <label className="label">Description </label>
-    <textarea className="textarea textarea-lg"></textarea>
+    <label className="label font-medium"><span>Description <span className="text-sm text-gray-400">(Optionnel)</span></span></label>
+    <textarea className="textarea w-full border-gray-300" placeholder="Ex: Concert live avec..."></textarea>
 
-    <label className="label">Catégorie *</label>
-    <select defaultValue="Concert" className="select w-full h-10">
+    <label className="label font-medium">Catégorie *</label>
+    <select defaultValue="Concert" className="select w-full h-10 border-gray-300">
         <option>Concert</option>
         <option>Festival</option>
         <option>Conférence</option>
@@ -36,40 +39,47 @@ function Publication() {
         <option>Soirée</option>
  </select>
 
-  <div className="flex gap-4">
-    <div className="flex flex-col">
-      <label className="label ">Date * </label>
-      <input type="date" className="input w-full h-10" />
+  <div className="flex gap-4 ">
+    <div className="flex flex-col flex-1">
+      <label className="label font-medium">Date * </label>
+      <input type="date" className="input w-full h-10 border-gray-300" />
     </div>
 
-    <div className="flex flex-col">
-      <label className="label">Heure * </label>
-      <input type="time" className="input w-full h-10" />
+    <div className="flex flex-col flex-1">
+      <label className="label font-medium">Heure * </label>
+      <input type="time" className="input w-full h-10 border-gray-300" />
     </div>
   </div>
     
-    <label className="label">Lieu * </label>
-    <input type="text" className="input w-full h-10" /> 
+    <label className="label font-medium">Lieu * </label>
+    <input type="text" className="input w-full h-10 border-gray-300" /> 
 
-    <label className="label">Nombre de place disponibles * </label>
-    <input type="number" className="input w-full h-10" />
+    <label className="label font-medium">Nombre de place disponibles * </label>
+    <input type="number" className="input w-full h-10 border-gray-300" />
 
-    <label className="label">Paf * </label>
-    <input type="number" className="input w-full h-10" />  
+    <label className="label font-medium">Prix * </label>
+    <input type="number" className="input w-full h-10 border-gray-300" />  
 
-    <label className="label">Statut *</label>
-    <select defaultValue="Disponible" className="select w-full h-10">
+    <label className="label font-medium">Statut *</label>
+    <select defaultValue="Disponible" className="select w-full h-10 border-gray-300">
         <option>Disponible</option>
         <option>Complet</option>
         <option>Annulé</option>
  </select>
 
-    <label className="label">Image </label>
-    <fieldset className="fieldset">
-  <input type="file" className="file-input input-xl w-full " />
-  <label className="label">Taille maximun 2MB</label>
-</fieldset>
+    <label className="label font-medium"><span>Image <span className="text-sm text-gray-400">(Optionnel)</span></span></label>
+    <label className="border-2 border-gray-300 border-dashed rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-50 hover:border-sky-900 transition">
+      <input type="file" className="hidden w-full " accept="image/*"/>
+      <p className="font-medium text-gray-500">Cliquez pour ajouter une image</p>
+      <p className="text-sm text-gray-500">JPG, PNG - max 2MB</p>
+    </label>
+
+    <div>
+      <button className="btn btn-block bg-sky-700 mt-5 font-semibold text-white hover:bg-sky-900">Publier</button>
+    </div>
+    
 </form>
+          </div>
 
           <section className="flex-1" />
         </main>
