@@ -21,7 +21,7 @@ function Navbar({ open, setOpen }) {
 
   </div>
   <div className="flex-1">
-    <Link to="/Dashboard" className="btn btn-ghost text-xl">AdminEvents</Link>
+    <Link to="/" className="btn btn-ghost text-xl">AdminEvents</Link>
   </div>
   <div className="flex-none">
     <label className="swap swap-rotate">
@@ -84,6 +84,7 @@ function Navbar({ open, setOpen }) {
             <span className="badge">New</span>
           </Link>
         </li>
+        <li><a className="text-red-600">Déconnexion</a></li>
       </ul>
     </div>
   </div>
