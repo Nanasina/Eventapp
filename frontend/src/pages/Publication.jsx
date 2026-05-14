@@ -68,14 +68,14 @@ function Publication() {
  </select>
 
     <label className="label font-medium"><span>Image <span className="text-sm text-gray-400">(Optionnel)</span></span></label>
-    <label className="border-2 border-gray-300 border-dashed rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-sky-50 hover:border-sky-900 transition">
+    <label className="border-2 border-gray-300 border-dashed rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-200 hover:border-slate-500 transition">
       <input type="file" className="hidden w-full " accept="image/*"/>
       <p className="font-medium text-gray-500">Cliquez pour ajouter une image</p>
       <p className="text-sm text-gray-500">JPG, PNG - max 2MB</p>
     </label>
 
     <div>
-      <button className="btn btn-block bg-sky-700 mt-5 font-semibold text-white hover:bg-sky-900">Publier</button>
+      <button className="btn btn-block bg-slate-600 mt-5 font-semibold text-white hover:bg-slate-500">Publier</button>
     </div>
     
 </form>
