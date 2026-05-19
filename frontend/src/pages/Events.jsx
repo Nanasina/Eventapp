@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Info, SquarePen, Trash2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
@@ -43,15 +44,15 @@ function Events() {
 
             <div className="flex flex-wrap items-center gap-2">
               <select className="select select-sm bg-slate-200 font-bold rounded-xl max-w-xs">
-                <option selected>Tous</option>
-                <option>Disponible</option>
-                <option>Complet</option>
-                <option>Annulé</option>
+                <option value="tous" selected>Tous</option>
+                <option value="attente">En attente</option>
+                <option value="confirmee">Confirmée</option>
+                <option value="annulee">Annulée</option>
               </select>
 
               <select className="select bg-slate-200 font-bold  select-sm rounded-xl max-w-xs">
-                <option selected>Plus récent</option>
-                <option>Plus ancien</option>
+                <option value="recent" selected>Plus récent</option>
+                <option value="ancien">Plus ancien</option>
               </select>
             </div>
           </div>
@@ -112,12 +113,15 @@ function Events() {
                       </dialog>
 
                       {/* <button type="button" className="btn btn-ghost btn-circle btn-sm text-gray-500 hover:bg-gray-300 hover:text-gray-700  active:text-white active:scale-95"><Info className="w-5 h-5 text-gray-600" /></button> */}
+                      <Link to="/modification">
                       <button
                         type="button"
                         className="btn btn-ghost btn-circle btn-sm text-info hover:bg-info hover:text-blue-700 active:bg-info active:text-white active:scale-95 "
                       >
                         <SquarePen className="w-5 h-5 text-blue-700" />
                       </button>
+                      </Link>
+                      
                       <button
                         type="button"
                         className="btn btn-ghost btn-circle btn-sm text-error hover:bg-error hover:text-red-700 active:bg-error active:text-white active:scale-95 transition-all"

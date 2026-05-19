@@ -2,7 +2,7 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
-function Publication() {
+function ModificationEvents() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -19,10 +19,10 @@ function Publication() {
         >
           <div className="w-full max-w-xl px-4">
             <h1 className="text-2xl font-bold mb-6">
-              Publier un événement <br />{" "}
+              Modification <br />{" "}
               <span className="text-sm text-gray-400 font-normal">
                 Tous les champs marqués d'une astérisque (*) sont obligatoires
-                pour la validation de l'événement
+                pour la validation du modification
               </span>
             </h1>
             <form className="fieldset border shadow-md bg-white rounded-box p-6">
@@ -132,7 +132,7 @@ function Publication() {
 
               <div>
                 <button className="btn btn-block bg-slate-600 mt-5 font-semibold rounded-xl text-white hover:bg-slate-500">
-                  Publier
+                  Modifier
                 </button>
               </div>
             </form>
@@ -145,4 +145,4 @@ function Publication() {
   );
 }
 
-export default Publication;
+export default ModificationEvents;
