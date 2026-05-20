@@ -44,25 +44,29 @@ function Events() {
 
             <div className="flex flex-wrap items-center gap-2">
               <select className="select select-sm bg-slate-200 font-bold rounded-xl max-w-xs">
-                <option value="tous" selected>Tous</option>
+                <option value="tous" selected>
+                  Tous
+                </option>
                 <option value="attente">En attente</option>
                 <option value="confirmee">Confirmée</option>
                 <option value="annulee">Annulée</option>
               </select>
 
               <select className="select bg-slate-200 font-bold  select-sm rounded-xl max-w-xs">
-                <option value="recent" selected>Plus récent</option>
+                <option value="recent" selected>
+                  Plus récent
+                </option>
                 <option value="ancien">Plus ancien</option>
               </select>
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="m-4 shadow-sm rounded-xl bg-slate-100">
             <div className="overflow-x-auto">
               <table className="table">
                 {/* head */}
                 <thead>
-                  <tr>
+                  <tr className="text-center text-sm">
                     <th>Evénement</th>
                     <th>Catégorie</th>
                     <th>Date</th>
@@ -76,7 +80,7 @@ function Events() {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  <tr>
+                  <tr className="text-center font-medium">
                     <td>
                       <div className="font-semibold">Jazz Night</div>
 
@@ -85,14 +89,28 @@ function Events() {
                       </div>
                     </td>
 
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className="flex">
+                    <td>sffsrffs</td>
+                    <td>sfsrrsf</td>
+                    <td>sgsfss</td>
+                    <td>sgfsrfsvxf</td>
+                    <td>vsdezsgts</td>
+                    <td>qdearyxisjhd</td>
+                    <td>
+                      {/* <div className="badge badge-success text-white font-medium">
+  
+  Disponible
+</div> */}
+
+                      <div className="badge badge-warning text-white font-medium">
+                        Complet
+                      </div>
+
+                      {/* <div className="badge badge-error text-white font-medium">
+  
+  Annulée
+</div>  */}
+                    </td>
+                    <td className="flex justify-center items-center">
                       {/* Open the modal using document.getElementById('ID').showModal() method */}
                       <button
                         className="btn btn-ghost btn-circle btn-sm text-gray-500 hover:bg-gray-300 hover:text-gray-700  active:text-white active:scale-95"
@@ -114,20 +132,46 @@ function Events() {
 
                       {/* <button type="button" className="btn btn-ghost btn-circle btn-sm text-gray-500 hover:bg-gray-300 hover:text-gray-700  active:text-white active:scale-95"><Info className="w-5 h-5 text-gray-600" /></button> */}
                       <Link to="/modification">
-                      <button
-                        type="button"
-                        className="btn btn-ghost btn-circle btn-sm text-info hover:bg-info hover:text-blue-700 active:bg-info active:text-white active:scale-95 "
-                      >
-                        <SquarePen className="w-5 h-5 text-blue-700" />
-                      </button>
+                        <button
+                          type="button"
+                          className="btn btn-ghost btn-circle btn-sm text-info hover:bg-info hover:text-blue-700 active:bg-info active:text-white active:scale-95 "
+                        >
+                          <SquarePen className="w-5 h-5 text-blue-700" />
+                        </button>
                       </Link>
-                      
+
                       <button
                         type="button"
                         className="btn btn-ghost btn-circle btn-sm text-error hover:bg-error hover:text-red-700 active:bg-error active:text-white active:scale-95 transition-all"
+                        onClick={() =>
+                          document.getElementById("my_modal_5").showModal()
+                        }
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
+                      <dialog
+                        id="my_modal_5"
+                        className="modal modal-bottom sm:modal-middle"
+                      >
+                        <div className="modal-box">
+                          <h3 className="font-bold text-lg">
+                            Supprimer la publication
+                          </h3>
+                          <p className="py-4">
+                            Etes-vous sûr de vouloir supprimer cette publication
+                            ?
+                          </p>
+                          <div className="modal-action justify-center items-cente">
+                            <form method="dialog gap-5">
+                              {/* if there is a button in form, it will close the modal */}
+                              <button className="btn">Annuler</button>
+                            </form>
+                            <button className="btn btn-error text-white ">
+                              Supprimer
+                            </button>
+                          </div>
+                        </div>
+                      </dialog>
                     </td>
                   </tr>
                 </tbody>

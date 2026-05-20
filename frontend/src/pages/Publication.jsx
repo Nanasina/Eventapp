@@ -15,7 +15,7 @@ function Publication() {
           </div>
         )}
         <main
-          className={`flex flex-1 justify-center items-center flex-col overflow-y-auto ${open ? "ml-56" : ""}`}
+          className={`flex flex-1 justify-center items-center flex-col overflow-y-auto bg-base-100 ${open ? "ml-56" : ""}`}
         >
           <div className="w-full max-w-xl px-4">
             <h1 className="text-2xl font-bold mb-6">
@@ -25,7 +25,7 @@ function Publication() {
                 pour la validation de l'événement
               </span>
             </h1>
-            <form className="fieldset border shadow-md bg-white rounded-box p-6">
+            <form className="fieldset border shadow-md bg-white rounded-box p-6 space-y-3">
               <label className="label font-medium">Nom de l'événement *</label>
               <input
                 type="text"
@@ -64,7 +64,7 @@ function Publication() {
                 <option value="soiree">Soirée</option>
               </select>
 
-              <div className="flex gap-4 ">
+              <div className="grid grid-cols-2 gap-4 w-full">
                 <div className="flex flex-col flex-1">
                   <label className="label font-medium">Date * </label>
                   <input
@@ -131,7 +131,7 @@ function Publication() {
               </label>
 
               <div>
-                <button className="btn btn-block bg-slate-600 mt-5 font-semibold rounded-xl text-white hover:bg-slate-500">
+                <button className="btn btn-block bg-slate-600 mt-5 font-semibold rounded-xl text-white hover:bg-slate-700">
                   Publier
                 </button>
               </div>

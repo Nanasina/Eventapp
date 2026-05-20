@@ -53,7 +53,7 @@ function Reservation() {
               <table className="table">
                 {/* head */}
                 <thead>
-                  <tr>
+                  <tr className="text-center text-sm">
                     <th>Utilisateur</th>
                     <th>Evénement</th>
                     <th>Places</th>
@@ -64,13 +64,28 @@ function Reservation() {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className="flex gap-2">
+                  <tr className="text-center text-sm font-medium">
+                    <td>sgzratsyssdsq</td>
+                    <td>jhsgtdr</td>
+                    <td>sfsrzfsfd</td>
+                    <td>
+                      {/* <div className="badge badge-success text-white font-medium">
+  
+  Confirmée
+</div> */}
+
+ <div className="badge badge-warning text-white font-medium">
+  
+  En attente
+</div>
+
+ {/* <div className="badge badge-error text-white font-medium">
+  
+  Annulée
+</div>  */}
+                    </td>
+                    <td>gsfarsfrarfsdsf</td>
+                    <td className="flex gap-2 justify-center items-center">
                       <button
                         type="button"
                         className="btn btn-success btn-sm text-white hover:bg-green-400 active:bg-success active:text-white active:scale-95 "
@@ -78,12 +93,12 @@ function Reservation() {
                         Confirmer réservation
                       </button>
                       
-                      <button
+                      {/* <button
                         type="button"
                         className="btn btn-warning btn-sm text-white hover:bg-orange-400 active:bg-warning active:text-white active:scale-95"
                       >
                         Confirmer annulation
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 </tbody>
