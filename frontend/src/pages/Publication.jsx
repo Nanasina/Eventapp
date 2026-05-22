@@ -17,7 +17,7 @@ function Publication() {
         <main
           className={`flex flex-1 justify-center items-center flex-col overflow-y-auto bg-base-100 ${open ? "ml-56" : ""}`}
         >
-          <div className="w-full max-w-xl px-4">
+          <div className="w-full max-w-xl px-4 m-5">
             <h1 className="text-2xl font-bold mb-6">
               Publier un événement <br />{" "}
               <span className="text-sm text-gray-400 font-normal">

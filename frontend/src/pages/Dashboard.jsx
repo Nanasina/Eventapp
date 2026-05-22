@@ -148,19 +148,19 @@ function Dashboard() {
               <table className="table">
                 {/* head */}
                 <thead>
-                  <tr className="text-center text-sm">
+                  <tr className="text-sm border-b border-base-300">
                     <th>Evénement</th>
-                    <th>Date & heure</th>
-                    <th>Place vendues</th>
-                    <th>Revenus</th>
-                    <th>Statut</th>
+                    <th className="text-center">Date & heure</th>
+                    <th className="text-center">Place vendues</th>
+                    <th className="text-center">Statut</th>
+                    <th className="text-right">Revenus</th>
                   </tr>
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  <tr className="text-center font-medium hover:bg-base-300 transition-colors">
-                    <td>
-                      <div className="flex justify-center items-center gap-3">
+                  <tr className="font-medium border-b border-base-300 hover:bg-base-300 transition-colors">
+                    <td className="text-left">
+                      <div className="flex gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
                             <img
@@ -181,10 +181,9 @@ function Dashboard() {
                       <div className="text-sm text-slate-500">Mahaleo</div> */}
                     </td>
 
-                    <td>fsddsqdfs</td>
-                    <td>150 / 200 places</td>
-                    <td>120.000 Ar</td>
-                    <td>
+                    <td className="text-center">26 juin - 19h00</td>
+                    <td className="text-center">150 / 200 places</td>
+                    <td className="text-center">
                       <div className="badge badge-neutral font-medium text-white">
                         Terminé
                       </div>
@@ -202,7 +201,55 @@ function Dashboard() {
   Annulée
 </div>  */}
                     </td>
+                    <td className="text-right">120.000 Ar</td>
                   </tr>
+
+                  <tr className="font-medium border-b border-base-300 hover:bg-base-300 transition-colors">
+                    <td className="text-left">
+                      <div className="flex gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle h-12 w-12">
+                            <img
+                              src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                              alt="Avatar Tailwind CSS Component"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-semibold">Hart Hagerty</div>
+                          <div className="text-sm font-bold text-slate-500">
+                            United States
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="font-semibold">Jazz Night</div>
+
+                      <div className="text-sm text-slate-500">Mahaleo</div> */}
+                    </td>
+
+                    <td className="text-center">26 juin - 19h00</td>
+                    <td className="text-center">150 / 200 places</td>
+                    <td className="text-center">
+                      <div className="badge badge-neutral font-medium text-white">
+                        Terminé
+                      </div>
+                      {/* <div className="badge badge-success text-white font-medium">
+  
+  Disponible
+</div> */}
+
+                      {/* <div className="badge badge-warning text-white font-medium">
+                        Complet
+                      </div> */}
+
+                      {/* <div className="badge badge-error text-white font-medium">
+  
+  Annulée
+</div>  */}
+                    </td>
+                    <td className="text-right">120.000 Ar</td>
+                  </tr>
+                  
                 </tbody>
               </table>
             </div>

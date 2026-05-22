@@ -1,9 +1,9 @@
-import { useState } from "react"
-import Navbar from "../components/Navbar"
-import Sidebar from "../components/Sidebar"
+import { useState } from "react";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
 function Reservation() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -14,14 +14,27 @@ function Reservation() {
             <Sidebar />
           </div>
         )}
-        <main className={`flex flex-1 flex-col overflow-y-auto ${open ? 'ml-56' : ''}`}>
+        <main
+          className={`flex flex-1 flex-col overflow-y-auto bg-base-100${open ? "ml-56" : ""}`}
+        >
           <div className="w-full p-5 flex flex-col gap-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <h1 className="text-2xl font-bold text-base-content">
                 Réservation
               </h1>
+            </div>
 
-              <label className="input input-bordered input-sm flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <select className="select select-sm border-base-300 font-semibold rounded-xl max-w-xs">
+                <option value="tous" selected>
+                  Tous
+                </option>
+                <option value="attente">En attente</option>
+                <option value="confirmee">Confirmée</option>
+                <option value="annulee">Annulée</option>
+              </select>
+
+              <label className="input input-bordered input-sm border-1 flex items-center gap-2 rounded-xl">
                 <input type="text" className="grow" placeholder="Recherche" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -36,63 +49,54 @@ function Reservation() {
                   />
                 </svg>
               </label>
-            </div>
 
-            <div className="items-center">
-              <select className="select select-sm bg-slate-200 font-bold rounded-xl max-w-xs">
-                <option value="tous" selected>Tous</option>
-                <option value="attente">En attente</option>
-                <option value="confirmee">Confirmée</option>
-                <option value="annulee">Annulée</option>
-              </select>
             </div>
           </div>
 
-          <div className="m-4">
+          <div className="bg-base-100 m-4 shadow-sm border border-base-300 p-4 rounded-xl ">
             <div className="overflow-x-auto">
               <table className="table">
                 {/* head */}
                 <thead>
-                  <tr className="text-center text-sm">
+                  <tr className="text-sm border-b border-base-300">
                     <th>Utilisateur</th>
                     <th>Evénement</th>
-                    <th>Places</th>
-                    <th>Statut</th>
-                    <th>Date de réservation</th>
-                    <th>Actions</th>
+                    <th className="text-center">Places</th>
+                    <th className="text-center">Statut</th>
+                    <th className="text-center">Date de réservation</th>
+                    <th className="text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  <tr className="text-center text-sm font-medium">
-                    <td>sgzratsyssdsq</td>
-                    <td>jhsgtdr</td>
-                    <td>sfsrzfsfd</td>
-                    <td>
+                  <tr className="border-b border-base-300 font-medium hover:bg-base-300 transition-colors">
+                    <td className="text-left">Hasina</td>
+                    <td className="text-left">Concert Mahaleo</td>
+                    <td className="text-center">3</td>
+                    <td className="text-center">
                       {/* <div className="badge badge-success text-white font-medium">
   
   Confirmée
 </div> */}
 
- <div className="badge badge-warning text-white font-medium">
-  
-  En attente
-</div>
+                      <div className="badge badge-warning text-white font-medium">
+                        En attente
+                      </div>
 
- {/* <div className="badge badge-error text-white font-medium">
+                      {/* <div className="badge badge-error text-white font-medium">
   
   Annulée
 </div>  */}
                     </td>
-                    <td>gsfarsfrarfsdsf</td>
+                    <td className="text-center">21 juin 2026</td>
                     <td className="flex gap-2 justify-center items-center">
                       <button
                         type="button"
-                        className="btn btn-success btn-sm text-white hover:bg-green-400 active:bg-success active:text-white active:scale-95 "
+                        className="btn btn-success btn-sm text-white rounded-xl hover:bg-green-600 active:bg-success active:text-white active:scale-95 "
                       >
                         Confirmer réservation
                       </button>
-                      
+
                       {/* <button
                         type="button"
                         className="btn btn-warning btn-sm text-white hover:bg-orange-400 active:bg-warning active:text-white active:scale-95"
@@ -110,7 +114,7 @@ function Reservation() {
         </main>
       </div>
     </div>
-  )
+  );
 }
 
-export default Reservation
+export default Reservation;
