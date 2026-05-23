@@ -62,7 +62,7 @@ function Connexion() {
   <input type="password" className="grow" value="password" />
 </label>
 
-<div className="form-control flex flex-col-1">
+<div className="form-control flex ">
   <label className="label cursor-pointer">
     <input type="checkbox" className="checkbox checkbox-sm" />
   </label>
