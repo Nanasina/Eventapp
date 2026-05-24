@@ -121,6 +121,7 @@ function Publication() {
               <label className="border-2 border-gray-300 border-dashed rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-200 hover:border-slate-500 transition">
                 <input
                   type="file"
+                  name="image"
                   className="hidden w-full "
                   accept="image/*"
                 />

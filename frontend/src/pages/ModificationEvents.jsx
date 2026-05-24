@@ -122,6 +122,7 @@ function ModificationEvents() {
                 <input
                   type="file"
                   className="hidden w-full "
+                  name="image"
                   accept="image/*"
                 />
                 <p className="font-medium text-gray-500">
