@@ -201,4 +201,4 @@ exports.deleteEvent = async (req,res) => {
         console.error(error.message);
         res.status(500).json({erreur: "Erreur lors de la suppression"});   
     }
-};
+}; 
