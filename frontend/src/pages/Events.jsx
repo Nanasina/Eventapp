@@ -1,11 +1,37 @@
 import { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { Info, SquarePen, Trash2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import { useEffect } from "react";
 
 function Events() {
   const [open, setOpen] = useState(false);
+  const [evenement, setEvenement] = useState([]);
+
+  //Etat por gérer les chargements et les erreurs
+  const [loading, setLoading] = useState(true);
+  const [erreur, setErreur] = useState(null);
+
+  useEffect(() => {
+    const chargerEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/evenement');
+        setEvenement(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erreur de connexion :", error);
+        setErreur("Impossible de récupérer les événemts");
+        setLoading(false);
+      }
+    };
+
+    chargerEvents();
+  }, []);
+
+  if (loading) return <p className="p-5 text-gray-500">Chargement des événements...</p>;
+  if (erreur) return <p className="p-5 text-red-500">{erreur}</p>;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -81,37 +107,46 @@ function Events() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* row 1 */}
-                  <tr className="border-b border-base-300 font-medium hover:bg-base-300 transition-colors">
+                  {evenement.length === 0 ? (
+                    <tr>
+                <td colSpan="5" className="px-6 py-4 text-center">Aucun événement trouvé</td>
+              </tr>
+                  ) : (
+                    evenement.map((events) =>(
+                      <tr key={events.id_events} className="border-b border-base-300 font-medium hover:bg-base-300 transition-colors">
                     <td className="text-left">
-                      <div className="font-semibold">Jazz Night</div>
+                      <div className="font-semibold">{events.nom_event}</div>
 
                       <div className="text-sm font-bold text-slate-500">
-                        Mahaleo
+                        {events.artiste_groupe}
                       </div>
                     </td>
 
-                    <td className="text-left">Concert</td>
-                    <td className="text-left">Mahamasina</td>
-                    <td className="text-center">19 juin 2026</td>
-                    <td className="text-center">17H00</td>
+                    <td className="text-left">{events.categorie}</td>
+                    <td className="text-left">{events.lieu}</td>
+                    <td className="text-center">{new Date (events.date_event).toLocaleDateString('fr-FR', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric'
+                    })}</td>
+                    <td className="text-center">{events.heure_event}</td>
                     <td className="text-center">
-                      {/* <div className="badge badge-success text-white font-medium">
+                      <div className="badge badge-success text-white font-medium">
   
-  Disponible
-</div> */}
+  {events.statut}
+</div>
 
-                      <div className="badge badge-warning text-white font-medium">
+                      {/* <div className="badge badge-warning text-white font-medium">
                         Complet
-                      </div>
+                      </div> */}
 
                       {/* <div className="badge badge-error text-white font-medium">
   
   Annulée
 </div>  */}
                     </td>
-                    <td className="text-right">100 places</td>
-                    <td className="text-right">15000 Ar</td>
+                    <td className="text-right">{events.place_dispo} places </td>
+                    <td className="text-right">{events.prix} Ar</td>
                     <td className="flex justify-center items-center gap-2">
                       {/* Open the modal using document.getElementById('ID').showModal() method */}
                       <button
@@ -126,7 +161,7 @@ function Events() {
                       <dialog id="my_modal_2" className="modal">
                         <div className="modal-box">
                           <h3 className="font-bold text-lg">Description</h3>
-                          <p className="py-4"></p>
+                          <p className="py-4">{events.description}</p>
                         </div>
                         <form method="dialog" className="modal-backdrop ">
                           <button>close</button>
@@ -154,7 +189,14 @@ function Events() {
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
-                      <dialog
+                      
+                    </td>
+                  </tr>
+                    ))
+                    
+                  )} 
+                  
+                  <dialog
                         id="my_modal_5"
                         className="modal modal-bottom sm:modal-middle"
                       >
@@ -177,8 +219,6 @@ function Events() {
                           </div>
                         </div>
                       </dialog>
-                    </td>
-                  </tr>
                   
                 </tbody>
               </table>

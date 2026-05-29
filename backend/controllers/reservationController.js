@@ -57,7 +57,7 @@ exports.updateReservation = async (req,res) => {
         } 
 
         if (reservationRecup.statut_reservation === "Annulée") {
-            await db.query('UPDATE evenement SET place_dispo = place_dispo + $1 WHERE id_events = $2 RETURNING *', [reservationRecup.nbr_place, reservationRecups.id_events]);
+            await db.query('UPDATE evenement SET place_dispo = place_dispo + $1 WHERE id_events = $2 RETURNING *', [reservationRecup.nbr_place, reservationRecup.id_events]);
             return res.json({message : "Annulée et place mises à jour"})
         }
 
