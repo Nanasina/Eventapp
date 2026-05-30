@@ -1,9 +1,30 @@
 import { useState } from "react";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 function Publication() {
   const [open, setOpen] = useState(false);
+  const [nomEvent, setNomEvent] = useState("");
+  const [artiste, setArtiste] = useState("");
+  const [description, setDescription] = useState("");
+  const [categorie, setCategorie] = useState("");
+  const [date, setDate] = useState("");
+  const [heure, setHeure] = useState("");
+  const [lieu, setLieu] = useState("");
+  const [placeDispo, setPlaceDispo] = useState("");
+  const [prix, setPrix] = useState("");
+  const [statut, setStatut] = useState("Disponible");
+  const [image, setImage] = useState(null);
+  
+  const [loading, setLoading]= useState(false);
+  const [erreur, setErreur] = useState(null);
+
+  //gestion de l'envoi
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Données prêtes à envoyer : ", {nomEvent, artiste, description, categorie, date, heure, lieu, placeDispo, prix, statut, image});
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -25,19 +46,25 @@ function Publication() {
                 pour la validation de l'événement
               </span>
             </h1>
-            <form className="fieldset border shadow-md bg-white rounded-box p-6 space-y-3">
+            <form onSubmit={handleSubmit} className="fieldset border shadow-md bg-white rounded-box p-6 space-y-3">
               <label className="label font-medium">Nom de l'événement *</label>
               <input
                 type="text"
+                value={nomEvent}
+                onChange={(e) => setNomEvent(e.target.value)}
                 className="input w-full h-10 rounded-xl border-gray-300"
                 placeholder="Ex: Concert de Jazz"
+                required
               />
 
               <label className="label font-medium">Artiste/Groupe *</label>
               <input
                 type="text"
+                value={artiste}
+                onChange={(e) => setArtiste(e.target.value)}
                 className="input w-full h-10 rounded-xl border-gray-300"
                 placeholder="Ex: Mahaleo, Denise..."
+                required
               />
 
               <label className="label font-medium">
@@ -48,12 +75,15 @@ function Publication() {
               </label>
               <textarea
                 className="textarea w-full rounded-xl border-gray-300"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 placeholder="Ex: Concert live avec..."
               ></textarea>
 
               <label className="label font-medium">Catégorie *</label>
               <select
-                defaultValue="Concert"
+                value={categorie}
+                onChange={(e) => setCategorie(e.target.value)}
                 className="select w-full rounded-xl h-10 border-gray-300"
               >
                 <option value="concert">Concert</option>
@@ -69,7 +99,10 @@ function Publication() {
                   <label className="label font-medium">Date * </label>
                   <input
                     type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                     className="input w-full rounded-xl h-10 border-gray-300"
+                    required
                   />
                 </div>
 
@@ -77,7 +110,10 @@ function Publication() {
                   <label className="label font-medium">Heure * </label>
                   <input
                     type="time"
+                    value={heure}
+                    onChange={(e) => setHeure(e.target.value)}
                     className="input w-full h-10 rounded-xl border-gray-300"
+                    required
                   />
                 </div>
               </div>
@@ -85,7 +121,10 @@ function Publication() {
               <label className="label font-medium">Lieu * </label>
               <input
                 type="text"
+                value={lieu}
+                onChange={(e) => setLieu(e.target.value)}
                 className="input w-full h-10 rounded-xl border-gray-300"
+                required
               />
 
               <label className="label font-medium">
@@ -93,23 +132,29 @@ function Publication() {
               </label>
               <input
                 type="number"
+                value={placeDispo}
+                onChange={(e) => setPlaceDispo(e.target.value)}
                 className="input w-full h-10 rounded-xl border-gray-300"
+                required
               />
 
               <label className="label font-medium">Prix * </label>
               <input
                 type="number"
+                value={prix}
+                onChange={(e) => setPrix(e.target.value)}
                 className="input w-full h-10 rounded-xl border-gray-300"
+                required
               />
 
               <label className="label font-medium">Statut *</label>
               <select
                 defaultValue="Disponible"
+                value={statut}
+                onChange={(e) => setStatut(e.target.value)}
                 className="select w-full h-10 rounded-xl border-gray-300"
               >
                 <option value="disponible">Disponible</option>
-                <option value="complet">Complet</option>
-                <option value="annule">Annulé</option>
               </select>
 
               <label className="label font-medium">
@@ -124,15 +169,16 @@ function Publication() {
                   name="image"
                   className="hidden w-full "
                   accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])}
                 />
                 <p className="font-medium text-gray-500">
-                  Cliquez pour ajouter une image
+                  {image ? `Fichier sélectionné : ${image.name}` : "Cliquez pour ajouter une image"}
                 </p>
                 <p className="text-sm text-gray-500">JPG, PNG - max 2MB</p>
               </label>
 
               <div>
-                <button className="btn btn-block bg-slate-600 mt-5 font-semibold rounded-xl text-white hover:bg-slate-700">
+                <button type="submit" className="btn btn-block bg-slate-600 mt-5 font-semibold rounded-xl text-white hover:bg-slate-700">
                   Publier
                 </button>
               </div>

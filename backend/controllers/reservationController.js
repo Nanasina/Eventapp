@@ -3,7 +3,8 @@ const eventConstroller = require('../controllers/eventController');
 
 exports.getReservation = async (req,res) => {
     try {
-        const result = await db.query('SELECT * FROM reservation');
+        const result = await db.query
+        ('SELECT r.id_reservation, u.nom, e.artiste_groupe, r.nbr_place, r.statut_reservation, r.date_reservation  FROM reservation r JOIN utilisateur u ON r.id_user = u.id_user JOIN evenement e ON r.id_events = e.id_events');
         res.json(result.rows);
     } catch (error) {
         console.log(error.message);

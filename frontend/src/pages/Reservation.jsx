@@ -1,9 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 function Reservation() {
   const [open, setOpen] = useState(false);
+  const [reservation, setReservation] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [erreur, setErreur] = useState(null);
+
+  useEffect(() =>{
+    const chargerResevation = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/reservation');
+        setReservation(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erreur de connexion : ", error);
+        setErreur("Impossible de récupérer les réservations");
+        setLoading(false);
+      }
+    }
+
+    chargerResevation();
+  }, []);
+
+  if (loading) return <p className="p-5 text-gray-500">Chargement des réservations...</p>;
+  if (erreur) return <p className="p-5 text-red-500">{erreur}</p>;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -68,11 +91,16 @@ function Reservation() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* row 1 */}
-                  <tr className="border-b border-base-300 font-medium hover:bg-base-300 transition-colors">
-                    <td className="text-left">Hasina</td>
-                    <td className="text-left">Concert Mahaleo</td>
-                    <td className="text-center">3</td>
+                  {reservation.length === 0 ? (
+                    <tr>
+                <td colSpan="5" className="px-6 py-4 text-center">Aucun événement trouvé</td>
+              </tr>
+                  ): (
+                    reservation.map((reservat) =>(
+                      <tr key={reservat.id_reservation} className="border-b border-base-300 font-medium hover:bg-base-300 transition-colors">
+                    <td className="text-left">{reservat.nom}</td>
+                    <td className="text-left">{reservat.artiste_groupe}</td>
+                    <td className="text-center">{reservat.nbr_place}</td>
                     <td className="text-center">
                       {/* <div className="badge badge-success text-white font-medium">
   
@@ -80,7 +108,7 @@ function Reservation() {
 </div> */}
 
                       <div className="badge badge-warning text-white font-medium">
-                        En attente
+                        {reservat.statut_reservation}
                       </div>
 
                       {/* <div className="badge badge-error text-white font-medium">
@@ -88,7 +116,11 @@ function Reservation() {
   Annulée
 </div>  */}
                     </td>
-                    <td className="text-center">21 juin 2026</td>
+                    <td className="text-center">{new Date (reservat.date_reservation).toLocaleDateString('fr-FR', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric'
+                    })}</td>
                     <td className="flex gap-2 justify-center items-center">
                       <button
                         type="button"
@@ -105,6 +137,9 @@ function Reservation() {
                       </button> */}
                     </td>
                   </tr>
+                    ))
+                  )}
+                  
                 </tbody>
               </table>
             </div>
