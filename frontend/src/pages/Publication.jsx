@@ -23,7 +23,55 @@ function Publication() {
   //gestion de l'envoi
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Données prêtes à envoyer : ", {nomEvent, artiste, description, categorie, date, heure, lieu, placeDispo, prix, statut, image});
+    setLoading(true);
+    setErreur(null);
+
+    const formData = new FormData ();
+
+    formData.append('nom_event', nomEvent);
+    formData.append('artiste_groupe', artiste);
+    formData.append('description', description);
+    formData.append('categorie', categorie);
+    formData.append('date_event', date);
+    formData.append('heure_event', heure);
+    formData.append('lieu', lieu);
+    formData.append('place_dispo',placeDispo);
+    formData.append('prix', prix);
+    formData.append('statut', statut);
+
+    if(image){
+      formData.append('image', image);
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3000/evenement', formData, {
+        //Indiquer à Multer q'un fichier arrive
+        headers: {
+          'Content-Type': 'multipart/form-data', 
+        },
+      }); 
+
+      console.log("Evénement publié !", response.data)
+      alert("L'événement a été publié avec succès !");
+
+    setNomEvent("");
+    setArtiste("");
+    setDescription("");
+    setDate("");
+    setHeure("");
+    setLieu("");
+    setPlaceDispo("");
+    setPrix("");
+    setImage(null);
+
+    } catch (error) {
+      console.error("Erreur lors de la publication : ", error);
+      setErreur(error.response?.data?.erreur || "Une erreur est survenu lors de l'envoi.");
+      alert("Erreur lors de la publication de l'événement.");
+    } finally{
+      setLoading(false);
+    }
+
   };
 
   return (
@@ -46,6 +94,12 @@ function Publication() {
                 pour la validation de l'événement
               </span>
             </h1>
+
+            {erreur && (
+  <div className="bg-red-100 text-red-700 p-3 rounded-xl mb-4 font-medium">
+    {erreur}
+  </div>
+)}
             <form onSubmit={handleSubmit} className="fieldset border shadow-md bg-white rounded-box p-6 space-y-3">
               <label className="label font-medium">Nom de l'événement *</label>
               <input
@@ -81,19 +135,15 @@ function Publication() {
               ></textarea>
 
               <label className="label font-medium">Catégorie *</label>
-              <select
+              <input
+                type="text"
                 value={categorie}
                 onChange={(e) => setCategorie(e.target.value)}
-                className="select w-full rounded-xl h-10 border-gray-300"
-              >
-                <option value="concert">Concert</option>
-                <option value="festival">Festival</option>
-                <option value="conference">Conférence</option>
-                <option value="theatre">Théatre</option>
-                <option value="cinema">Cinéma</option>
-                <option value="soiree">Soirée</option>
-              </select>
-
+                className="input w-full rounded-xl h-10 border-gray-300"
+                placeholder="Ex: Concert rock métal"
+                required
+              />
+              
               <div className="grid grid-cols-2 gap-4 w-full">
                 <div className="flex flex-col flex-1">
                   <label className="label font-medium">Date * </label>
@@ -132,6 +182,7 @@ function Publication() {
               </label>
               <input
                 type="number"
+                min = "0"
                 value={placeDispo}
                 onChange={(e) => setPlaceDispo(e.target.value)}
                 className="input w-full h-10 rounded-xl border-gray-300"
@@ -141,6 +192,7 @@ function Publication() {
               <label className="label font-medium">Prix * </label>
               <input
                 type="number"
+                min = "0"
                 value={prix}
                 onChange={(e) => setPrix(e.target.value)}
                 className="input w-full h-10 rounded-xl border-gray-300"
@@ -179,7 +231,7 @@ function Publication() {
 
               <div>
                 <button type="submit" className="btn btn-block bg-slate-600 mt-5 font-semibold rounded-xl text-white hover:bg-slate-700">
-                  Publier
+                  {loading ? "Publication en cours..." : "Publier"}
                 </button>
               </div>
             </form>

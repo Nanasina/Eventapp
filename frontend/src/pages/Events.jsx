@@ -152,16 +152,18 @@ function Events() {
                       <button
                         className="btn btn-ghost btn-circle btn-sm text-gray-500 hover:bg-gray-300 hover:text-gray-700  active:text-white active:scale-95"
                         onClick={() =>
-                          document.getElementById("my_modal_2").showModal()
+                          document.getElementById(`modal-${events.id_events}`).showModal()
                         }
                         title="Voir les détails"
                       >
                         <Info className="w-5 h-5 text-gray-600" />
                       </button >
-                      <dialog id="my_modal_2" className="modal">
+                      <dialog id={`modal-${events.id_events}`} className="modal">
                         <div className="modal-box">
                           <h3 className="font-bold text-lg">Description</h3>
-                          <p className="py-4">{events.description}</p>
+                          <p className="py-4">
+                            {events.description || "Aucune description fourni pour cet événement"}
+                            </p>
                         </div>
                         <form method="dialog" className="modal-backdrop ">
                           <button>close</button>
