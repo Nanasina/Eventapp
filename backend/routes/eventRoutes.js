@@ -5,6 +5,7 @@ const upload = require('../config/multerConfig');
 
 //Route pour les événements
 router.get('/', eventController.getEvents);
+router.get('/:id', eventController.getEventById);
 router.post('/', upload.single('image'), eventController.createEvents); 
 router.put('/:id', upload.single('image'), eventController.updateEvent);
 router.delete('/:id', upload.single('image'), eventController.deleteEvent);

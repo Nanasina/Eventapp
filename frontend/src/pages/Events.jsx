@@ -33,6 +33,22 @@ function Events() {
   if (loading) return <p className="p-5 text-gray-500">Chargement des événements...</p>;
   if (erreur) return <p className="p-5 text-red-500">{erreur}</p>;
 
+  const handleSupprimer = async (id_events) => {
+    try {
+
+      await axios.delete(`http://localhost:3000/evenement/${id_events}`);
+      
+      alert("Événement supprimé avec succès !");
+      
+      // Mise à jour instantanée du tableau à l'écran sans recharger la page
+      setEvenement((prev) => prev.filter((events) => events.id_events !== id_events));
+      
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+      alert("Impossible de supprimer l'événement.");
+    }
+};
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar open={open} setOpen={setOpen} />
@@ -171,7 +187,7 @@ function Events() {
                       </dialog>
 
                       {/* <button type="button" className="btn btn-ghost btn-circle btn-sm text-gray-500 hover:bg-gray-300 hover:text-gray-700  active:text-white active:scale-95"><Info className="w-5 h-5 text-gray-600" /></button> */}
-                      <Link to="/modification">
+                      <Link to={`/modification/${events.id_events}`}>
                         <button
                           type="button"
                           title="Modifier l'événement"
@@ -185,21 +201,15 @@ function Events() {
                         type="button"
                         className="btn btn-ghost btn-circle btn-sm text-error hover:bg-error hover:text-red-700 active:bg-error active:text-white active:scale-95 transition-all"
                         onClick={() =>
-                          document.getElementById("my_modal_5").showModal()
+                          document.getElementById(`modals-${events.id_events}`).showModal()
                         }
                         title="Supprimer l'événement"
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
-                      
-                    </td>
-                  </tr>
-                    ))
-                    
-                  )} 
-                  
-                  <dialog
-                        id="my_modal_5"
+
+                      <dialog
+                        id={`modals-${events.id_events}`}
                         className="modal modal-bottom sm:modal-middle"
                       >
                         <div className="modal-box p-8">
@@ -215,12 +225,18 @@ function Events() {
                               {/* if there is a button in form, it will close the modal */}
                               <button className="btn">Annuler</button>
                             </form>
-                            <button className="btn btn-error text-white ">
+                            <button onClick={() => handleSupprimer(events.id_events)} className="btn btn-error text-white ">
                               Supprimer
                             </button>
                           </div>
                         </div>
                       </dialog>
+                      
+                    </td>
+                  </tr>
+                    ))
+                    
+                  )} 
                   
                 </tbody>
               </table>

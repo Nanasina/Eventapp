@@ -17,7 +17,7 @@ function App() {
       <Route path="/evenement" element={<Events />}/>
       <Route path="/reservation" element={<Reservation />}/>
       <Route path="/profil" element={<Profil />}/>
-      <Route path="/modification" element={<ModificationEvents/>}/>
+      <Route path="/modification/:id" element={<ModificationEvents/>}/>
       <Route path="/connexion" element={<Connexion/>}/>
     </Routes>
     </>

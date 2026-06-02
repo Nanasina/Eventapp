@@ -57,6 +57,7 @@ function Publication() {
     setNomEvent("");
     setArtiste("");
     setDescription("");
+    setCategorie("");
     setDate("");
     setHeure("");
     setLieu("");

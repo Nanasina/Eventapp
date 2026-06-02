@@ -121,9 +121,21 @@ exports.updateEvent = async (req,res) => {
             return res.status(404).json({erreur: "Evénement non retrouvé"});
         }
 
-        let imagePath = ancienEvent.rows[0].image_url;//on extrait l'url
+        // let imagePath = ancienEvent.rows[0].image_url;//on extrait l'url
+        let imagePath = ancienEvent.rows[0].image_url;
 
-        const physicaPath = path.join(__dirname, '..', 'uploads', path.basename(imagePath));
+let physicaPath = null;
+
+if (imagePath) {
+    physicaPath = path.join(
+        __dirname,
+        '..',
+        'uploads',
+        path.basename(imagePath)
+    );
+}
+
+        // const physicaPath = path.join(__dirname, '..', 'uploads', path.basename(imagePath));
 
         if(req.file){
             //On vérifi si le imagePath n'est pas vide et que elle existe dans le dossier uploads
@@ -187,13 +199,24 @@ exports.deleteEvent = async (req,res) => {
 
         let imagePath = recupImage.rows[0].image_url;
 
-        const physicalPtah = path.join(__dirname, '..', 'uploads', path.basename(imagePath));
+        let physicaPath = null;
+
+if (imagePath) {
+    physicaPath = path.join(
+        __dirname,
+        '..',
+        'uploads',
+        path.basename(imagePath)
+    );
+}
+
+        // const physicalPtah = path.join(__dirname, '..', 'uploads', path.basename(imagePath));
 
         await db.query(`DELETE FROM evenement WHERE id_events = $1`, [id]);
 
-        if(imagePath && fs.existsSync(path.normalize(physicalPtah))){
-            fs.unlinkSync(path.normalize(physicalPtah));
-            console.log("Image : ", physicalPtah, ", est supprimée");
+        if(imagePath && fs.existsSync(path.normalize(physicaPath))){
+            fs.unlinkSync(path.normalize(physicaPath));
+            console.log("Image : ", physicaPath, ", est supprimée");
         }
         
         res.json({message: "Evénement supprimé avec succès !"});
@@ -202,3 +225,19 @@ exports.deleteEvent = async (req,res) => {
         res.status(500).json({erreur: "Erreur lors de la suppression"});   
     }
 }; 
+
+exports.getEventById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await db.query(
+            `SELECT * FROM evenement WHERE id_events = $1`,
+            [id]
+        );
+
+        res.status(200).json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erreur serveur" });
+    }
+};
