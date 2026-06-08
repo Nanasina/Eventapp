@@ -1,6 +1,23 @@
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
 
+exports.getUser = async (req,res) => {
+    const {id} = req.params ;
+  try {
+    const result = await db.query(`SELECT * FROM utilisateur WHERE id_user = $1`, [id]);
+
+    if(result.rowCount === 0){
+            return res.status(404).json({erreur: "Utilisateur non retrouvé"});
+        }
+
+    res.json(result.rows[0]);
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({erreur: "Erreur serveur lors de la récupération"});
+  }  
+};
+
 exports.register = async (req,res) => {
     const {
         nom,

@@ -1,7 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
+import Profil from "../pages/Profil";
+import { useState } from "react";
 
 function Navbar({ open, setOpen }) {
   const navigate = useNavigate();
+  const [nomUser, setNomUser] = useState("");
 
   const handleLogout = () => {
     console.log("Deconnexion");
@@ -93,11 +96,11 @@ function Navbar({ open, setOpen }) {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full p-0">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+              <div className="w-10 rounded-full p-0 ">
+                <div className="bg-neutral text-neutral-content justify-center items-center">
+                    <span className="text-4xl">{Profil.nomUser ? Profil.nomUser.charAt(0).toUpperCase() : "?"}</span>
+                  </div>
+
               </div>
             </div>
             <ul

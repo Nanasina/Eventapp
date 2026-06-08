@@ -1,10 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 function Profil() {
   const [open, setOpen] = useState(false);
 
+  const [profil, setprofil] = useState("");
+  const [nomUser, setNomUser] = useState("");
+  const [role, setRole] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+useEffect(() => {
+      const chargmentProfil = async () => {
+        try {
+           const response = await axios.get(`http://localhost:3000/auth/utilisateur/${5}`);
+      const data = response.data;
+      console.log(data);
+
+      setNomUser(data.nom);
+      setEmail(data.email);
+      setRole(data.role);
+
+        } catch (error) {
+          console.error("Erreur lors du chargement : ", error)
+        }
+      
+  }
+ chargmentProfil();
+}, []);
+
+  const handleLogout = () => {
+    console.log("Deconnexion");
+    localStorage.removeItem("utilisateur");
+    navigate("/");
+  }
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar open={open} setOpen={setOpen} />
@@ -30,15 +64,15 @@ function Profil() {
               <div className="card-body">
                 <div className="avatar placeholder flex gap-8 items-center">
                   <div className="bg-neutral text-neutral-content w-24 rounded-full">
-                    <span className="text-3xl">D</span>
+                    <span className="text-3xl">{nomUser ? nomUser.charAt(0).toUpperCase() : "?"}</span>
                   </div>
 
                   <div className="flex flex-col mt-5">
-                    <p className="font-bold text-lg text-base-content">
-                      David lolo
+                    <p className="font-bold text-m text-base-content">
+                      {nomUser}
                     </p>
                     <p className="text-sm font-semibold text-base-content/60">
-                      Admin
+                      {(role?.trim())}
                     </p>
                   </div>
                 </div>
@@ -50,12 +84,16 @@ function Profil() {
               <input
                 type="text"
                 className="input w-full rounded-xl border-gray-300"
+                value={nomUser}
+                onChange={(e) => setNomUser(e.target.value)}
               />
 
               <label className="label font-medium">Email</label>
               <input
                 type="text"
                 className="input w-full rounded-xl border-gray-300"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
 
               <div>
@@ -70,7 +108,10 @@ function Profil() {
                 {/* Séparateur visuel discret */}
                 <div className="divider my-2"></div>
 
-                <button className="btn btn-block rounded-xl btn-ghost btn-md mt-5 font-semibold text-error hover:bg-error/10">
+                <button 
+                className="btn btn-block rounded-xl btn-ghost btn-md mt-5 font-semibold text-error hover:bg-error/10"
+                onClick={handleLogout}
+                >
                   Déconnexion
                 </button>
               </div>
