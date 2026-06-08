@@ -5,7 +5,8 @@ exports.register = async (req,res) => {
     const {
         nom,
         email,
-        password
+        password,
+        role
     } = req.body;
 
     try {
@@ -19,8 +20,8 @@ exports.register = async (req,res) => {
         const saltRounds = 10;
         const hashPassword = await bcrypt.hash(password, saltRounds);
 
-        const nouvelUser = await db.query(`INSERT INTO utilisateur (nom, email, password) VALUES ($1, $2, $3) RETURNING id_user, nom, email, role`,
-            [nom, email, hashPassword]
+        const nouvelUser = await db.query(`INSERT INTO utilisateur (nom, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id_user, nom, email, role`,
+            [nom, email, hashPassword, role]
         )
 
         res.status(200).json(nouvelUser.rows[0]);
@@ -32,7 +33,6 @@ exports.register = async (req,res) => {
 
 exports.login = async (req,res) => {
     const {
-        nom,
         email,
         password
     } = req.body;
@@ -43,7 +43,7 @@ exports.login = async (req,res) => {
         //Si l'utilisateur n'existe pas
         if(result.rowCount === 0){
             return res.status(401).json({erreur: "Identifiants incorrects"});
-        }
+        } 
 
         const utilisateur = result.rows[0];
 

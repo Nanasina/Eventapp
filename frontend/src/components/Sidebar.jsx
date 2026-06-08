@@ -6,9 +6,16 @@ import {
   LogOut,
   CalendarPlus,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log("Deconnexion");
+    localStorage.removeItem("utilisateur");
+    navigate("/");
+  };
   return (
     <>
       <div className="flex flex-col h-[calc(100vh-4rem)] w-64">
@@ -31,7 +38,7 @@ function Sidebar() {
     </Link>
   </li> */}
           <li>
-            <Link to="/">
+            <Link to="/dashboard">
               <div
                 className="h-5 w-5"
                 stroke="currentColor"
@@ -111,7 +118,7 @@ function Sidebar() {
             </Link>
           </li>
           <li className="mt-auto">
-            <a>
+            <button onClick={handleLogout}>
               <div
                 className="h-5 w-5"
                 stroke="currentColor"
@@ -124,7 +131,7 @@ function Sidebar() {
                 <LogOut className="h-5 w-5" />
               </div>
               Déconnexion
-            </a>
+            </button>
           </li>
         </ul>
       </div>

@@ -1,6 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar({ open, setOpen }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log("Deconnexion");
+    localStorage.removeItem("utilisateur");
+    navigate("/");
+  };
+
   return (
     <>
       <div className="navbar bg-base-100">
@@ -102,7 +110,7 @@ function Navbar({ open, setOpen }) {
                 </Link>
               </li>
               <li>
-                <a className="text-red-600">Déconnexion</a>
+                <button onClick={handleLogout} className="text-error hover:bg-error hover:text-white ">Déconnexion</button>
               </li>
             </ul>
           </div>

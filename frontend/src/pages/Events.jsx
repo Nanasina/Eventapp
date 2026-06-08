@@ -147,19 +147,26 @@ function Events() {
                     })}</td>
                     <td className="text-center">{events.heure_event}</td>
                     <td className="text-center">
-                      <div className="badge badge-success text-white font-medium">
+                      {events.statut === "Disponible" && (
+                        <div className="badge badge-success text-white font-medium">
   
   {events.statut}
 </div>
+                      )}
 
-                      {/* <div className="badge badge-warning text-white font-medium">
-                        Complet
-                      </div> */}
-
-                      {/* <div className="badge badge-error text-white font-medium">
+                      {events.statut === "Complet" && (
+                        <div className="badge badge-warning text-white font-medium">
   
-  Annulée
-</div>  */}
+  {events.statut}
+</div>
+                      )}
+
+                      {events.statut === "Annulée" && (
+                        <div className="badge badge-error text-white font-medium">
+  
+  {events.statut}
+</div>
+                      )}
                     </td>
                     <td className="text-right">{events.place_dispo} places </td>
                     <td className="text-right">{events.prix} Ar</td>

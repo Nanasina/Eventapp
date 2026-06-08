@@ -9,8 +9,7 @@ function Reservation() {
   const [loading, setLoading] = useState(true);
   const [erreur, setErreur] = useState(null);
 
-  useEffect(() =>{
-    const chargerResevation = async () => {
+  const chargerResevation = async () => {
       try {
         const response = await axios.get('http://localhost:3000/reservation');
         setReservation(response.data);
@@ -20,10 +19,41 @@ function Reservation() {
         setErreur("Impossible de récupérer les réservations");
         setLoading(false);
       }
-    }
+    };
 
+    const handleConfirmation = async (id) => {
+    try {
+      await axios.put(`http://localhost:3000/reservation/${id}`, 
+        {
+          statut_reservation : "Confirmée"
+        }
+      );
+
+      await chargerResevation();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAnnulation = async (id) => {
+    try {
+      await axios.put(`http://localhost:3000/reservation/${id}`, 
+        {
+          statut_reservation : "Annulée"
+        }
+      );
+
+      await chargerResevation();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() =>{
     chargerResevation();
   }, []);
+
+
 
   if (loading) return <p className="p-5 text-gray-500">Chargement des réservations...</p>;
   if (erreur) return <p className="p-5 text-red-500">{erreur}</p>;
@@ -102,39 +132,57 @@ function Reservation() {
                     <td className="text-left">{reservat.artiste_groupe}</td>
                     <td className="text-center">{reservat.nbr_place}</td>
                     <td className="text-center">
-                      {/* <div className="badge badge-success text-white font-medium">
-  
-  Confirmée
-</div> */}
+                      {reservat.statut_reservation === "Confirmée" && (
+                         <div className="badge badge-success text-white font-medium">
+                          {reservat.statut_reservation}
+                          </div> 
+                      )}
 
-                      <div className="badge badge-warning text-white font-medium">
+                      {reservat.statut_reservation === "Annulée" && (
+                         <div className="badge badge-error text-white font-medium">
+                          {reservat.statut_reservation}
+                          </div> 
+                      )}
+
+                      {reservat.statut_reservation === "En attente" &&(
+                        <div className="badge badge-warning text-white font-medium">
                         {reservat.statut_reservation}
-                      </div>
+                      </div> 
+                      )}
 
-                      {/* <div className="badge badge-error text-white font-medium">
-  
-  Annulée
-</div>  */}
+                      {reservat.statut_reservation !== "Confirmée" && reservat.statut_reservation !== "Annulée" && reservat.statut_reservation !== "En attente" && (
+                        <div className="badge bg-orange-400 text-white font-medium">
+                        {reservat.statut_reservation}
+                      </div> 
+                      )}
                     </td>
+
                     <td className="text-center">{new Date (reservat.date_reservation).toLocaleDateString('fr-FR', {
                       day: 'numeric',
                       month: 'long',
                       year: 'numeric'
                     })}</td>
                     <td className="flex gap-2 justify-center items-center">
-                      <button
+                      {reservat.statut_reservation === "Demande d'annulation" && (
+                         <button
                         type="button"
-                        className="btn btn-success btn-sm text-white rounded-xl hover:bg-green-600 active:bg-success active:text-white active:scale-95 "
+                        className="btn btn-error btn-sm text-white hover:bg-red-500 active:bg-error active:text-white active:scale-95"
+                        onClick={() => handleAnnulation(reservat.id_reservation)}
+                      >
+                        Confirmer annulation
+                      </button>
+                      )}
+
+                      {(reservat.statut_reservation === "En attente" || !reservat.statut_reservation) && (
+                        <button
+                        type="button"
+                        className="btn btn-success btn-sm text-white rounded-xl hover:bg-green-700 active:bg-success active:text-white active:scale-95 "
+                        onClick={() => handleConfirmation(reservat.id_reservation)}
                       >
                         Confirmer réservation
                       </button>
+                      )}
 
-                      {/* <button
-                        type="button"
-                        className="btn btn-warning btn-sm text-white hover:bg-orange-400 active:bg-warning active:text-white active:scale-95"
-                      >
-                        Confirmer annulation
-                      </button> */}
                     </td>
                   </tr>
                     ))

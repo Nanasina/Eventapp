@@ -1,32 +1,70 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Connexion() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [erreur, setErreur] = useState(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      setErreur(null);
+      
+      try {
+        const response = await axios.post(`http://localhost:3000/auth/login`, {
+          email: email,
+          password: password
+        });
+        
+        const utilisateur = response.data.utilisateur;
+
+        const roleuh = utilisateur.role?.trim().toLowerCase();
+
+        if(roleuh !== "admin"){
+          alert("Accès refusé !");
+          console.log("l' utilisateur", response.data);
+          setLoading(false);
+          return;
+        }
+
+        navigate('/dashboard');
+
+        localStorage.setItem(
+          "utilisateur",
+          JSON.stringify(response.data.utilisateur)
+        );
+
+      } catch (error) {
+        console.error("L'erreur est : ", error);
+        setErreur(error.response?.data?.erreur || "Identifiant incorrect ou le sereveur est éteint.");
+        alert("Erreur de connexion !")
+      }finally{
+        setLoading(false);
+      }
+      }
 
   return (
     <>
-    <div className="flex flex-1 justify-center items-center flex-col overflow-y-auto">
+    <div className="flex flex-1 justify-center items-center h-screen flex-col overflow-y-auto">
         <div className="w-full max-w-lg px-4 m-8 space-y-3">
-            <form className="fieldset border shadow-md bg-white rounded-box p-6">
+            <form onSubmit={handleLogin} className="fieldset border shadow-md bg-white rounded-box p-6">
 
-<h1 className="text-2xl font-bold text-center mb-5">
-              Se connecter
+<h1 className="text-xl font-bold text-center mb-5">
+              Connexion
             </h1>
 
-            <label className="input input-bordered flex items-center gap-2">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    fill="currentColor"
-    className="h-4 w-4 opacity-70">
-    <path
-      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-  </svg>
-  <input type="text" className="grow" placeholder="Username" />
-</label>
+            {erreur && (
+                <div className="bg-red-100 text-red-700 p-3 rounded-xl mb-4 text-center font-medium text-sm">
+                {erreur}
+              </div>
+            )}
 
-              {/* <label className="label font-medium">Nom </label>
-              <input
-                type="text"
-                className="input w-full rounded-xl border-gray-300"
-              /> */}
+            <div className="space-y-3">
 
               <label className="input input-bordered flex items-center gap-2">
   <svg
@@ -39,16 +77,15 @@ function Connexion() {
     <path
       d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
   </svg>
-  <input type="text" className="grow" placeholder="Email" />
+  <input type="text" 
+  className="grow" 
+  placeholder="Email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  required/>
 </label>
 
-              {/* <label className="label font-medium">Email</label>
-              <input
-                type="text"
-                className="input w-full rounded-xl border-gray-300"
-              /> */}
-
-              <label className="input input-bordered flex items-center gap-2">
+              <label className="input input-bordered flex items-center gap-2 mb-3">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
@@ -59,31 +96,26 @@ function Connexion() {
       d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
       clipRule="evenodd" />
   </svg>
-  <input type="password" className="grow" value="password" />
+  <input type="password"
+   className="grow" 
+   placeholder="Mot de passe" 
+   value={password}
+   onChange={(e) => setPassword(e.target.value)}
+   required />
 </label>
+            </div>
 
-<div className="form-control flex ">
-  <label className="label cursor-pointer">
-    <input type="checkbox" className="checkbox checkbox-sm" />
-  </label>
-  <span >Se souvenir de moi</span>
-</div>
+            <div className="mt-3 justify-end">
+              <a  href="http://">Mot de passe oublier ?</a>
+            </div>
 
               <div>
-                <button className="btn btn-block rounded-xl bg-slate-600 mt-5 font-semibold btn-md text-white hover:bg-slate-500">
-                  Modifier le profil
+                <button disabled={loading} className="btn btn-block rounded-xl bg-slate-600 mt-5 font-semibold btn-md text-white hover:bg-slate-500">
+                     {loading ? "Connexion en cours..." : "Connexion"}
                 </button>
-
-                <button className="btn btn-block rounded-xl btn-outline mt-5 font-semibold btn-md text-slate-600">
-                  Changer de mot de passe
-                </button>
-
-                {/* Séparateur visuel discret */}
-                <div className="divider my-2"></div>
-
-                <button className="btn btn-block rounded-xl btn-ghost btn-md mt-5 font-semibold text-error hover:bg-error/10">
-                  Déconnexion
-                </button>
+              </div>
+              <div>
+                <span></span>
               </div>
             </form>
           </div>
