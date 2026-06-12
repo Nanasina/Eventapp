@@ -34,6 +34,23 @@ useEffect(() => {
  chargmentProfil();
 }, []);
 
+const handleModificationProfil = async (e) => {
+   e.preventDefault();
+  try {
+    await axios.put(`http://localhost:3000/auth/utilisateur/${5}`,
+      {
+        nom: nomUser,
+        email: email
+      }
+    );
+
+   alert("Profil mis à jour avec succès !");
+  } catch (error) {
+    console.error("Erreur lors de la modification :", error);
+    alert("Impossible de modifier l'événement.");
+  }
+};
+
   const handleLogout = () => {
     console.log("Deconnexion");
     localStorage.removeItem("utilisateur");
@@ -97,7 +114,10 @@ useEffect(() => {
               />
 
               <div>
-                <button className="btn btn-block rounded-xl bg-slate-600 mt-5 font-semibold btn-md text-white hover:bg-slate-500">
+                <button
+                 className="btn btn-block rounded-xl bg-slate-600 mt-5 font-semibold btn-md text-white hover:bg-slate-500"
+                 onClick={handleModificationProfil}
+                 >
                   Modifier le profil
                 </button>
 

@@ -18,6 +18,22 @@ exports.getUser = async (req,res) => {
   }  
 };
 
+exports.putUser = async (req,res) => {
+    const {id} = req.params;
+    const {
+        nom,
+        email,
+    } = req.body;
+
+    try {
+        const result = await db.query(`UPDATE utilisateur SET nom = $1, email = $2 where id_user = $3 RETURNING *`, [nom, email, id]);
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({erreur: "Erreur lors de la modfication !"});
+    }
+};
+
 exports.register = async (req,res) => {
     const {
         nom,
@@ -68,7 +84,7 @@ exports.login = async (req,res) => {
         const pwCompare = await bcrypt.compare(password, utilisateur.password);
 
         if(!pwCompare){
-            return res.status(401).json({erreur: "Identifiants incorrects"});
+            return res.status(401).json({erreur: "mot de passe incorrects"});
         }
 
         res.json({
