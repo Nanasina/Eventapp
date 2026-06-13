@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 function Profil() {
   const [open, setOpen] = useState(false);
-
-  const [profil, setprofil] = useState("");
   const [nomUser, setNomUser] = useState("");
   const [role, setRole] = useState("")
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -120,10 +117,12 @@ const handleModificationProfil = async (e) => {
                  >
                   Modifier le profil
                 </button>
-
+                
+                <Link to = {`/modificationMotdepasse`}>
                 <button className="btn btn-block rounded-xl btn-outline mt-5 font-semibold btn-md text-slate-600">
                   Changer de mot de passe
                 </button>
+                </Link>
 
                 {/* Séparateur visuel discret */}
                 <div className="divider my-2"></div>

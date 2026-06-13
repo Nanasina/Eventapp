@@ -7,6 +7,7 @@ import Connexion from "./components/Connexion"
 import { Routes,Route } from "react-router-dom";
 import ModificationEvents from "./pages/ModificationEvents"
 import ProtectRouter from "./components/ProtectRouter"
+import ModificationPassword from "./components/ModificationPassword"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/reservation" element={<ProtectRouter><Reservation /></ProtectRouter>}/>
       <Route path="/profil" element={<ProtectRouter><Profil /></ProtectRouter>}/>
       <Route path="/modification/:id" element={<ProtectRouter><ModificationEvents/></ProtectRouter>}/>
+      <Route path="/modificationMotdepasse" element={<ProtectRouter><ModificationPassword/></ProtectRouter>}/>
     </Routes>
     </>
   )
